@@ -5,12 +5,11 @@
  * Date: 2018/4/10
  * Time: 9:55
  */
-namespace WisewinVending\Models;
 
 use MongoDB\BSON\ObjectID;
 use MongoDB\BSON\Regex;
-use WisewinVending\Models\Base\ModelHandler;
-use WisewinVending\Models\Traits\ModelTraitBase;
+use Application\Models\Base\ModelHandler;
+use Application\Models\Traits\ModelTraitBase;
 
 class TAdmin extends ModelHandler
 {
@@ -68,7 +67,7 @@ class TAdmin extends ModelHandler
      */
     public static function findByUserId($id)
     {
-        $query = array("user_id" => $id, "status" => USER_STATUS_VALID);
+        $query = array("user_id" => $id);
         return parent::findByQuery($query);
     }
 
@@ -87,9 +86,6 @@ class TAdmin extends ModelHandler
 
         if (isset($data['status'])) {
             $query["status"] = $data['status'];
-        }
-        else{
-            $query["status"] = USER_STATUS_VALID;
         }
 
         if (isset($data['name'])) {
@@ -125,8 +121,6 @@ class TAdmin extends ModelHandler
 
         if (isset($data['status'])) {
             $query["status"] = $data['status'];
-        }else{
-            $query["status"] = USER_STATUS_VALID;
         }
 
         if (isset($data['name'])) {
@@ -158,7 +152,7 @@ class TAdmin extends ModelHandler
      */
     public static function GetByUserId($id)
     {
-        $query = array("user_id" => $id, "status" => USER_STATUS_VALID);
+        $query = array("user_id" => $id);
         $option['projection'] = [
             'password' => 0,
         ];
@@ -175,9 +169,6 @@ class TAdmin extends ModelHandler
     {
         $query = array(
             "email" => $email,
-            'status' => [
-                '$ne' => USER_STATUS_DELETED
-            ],
         );
         return parent::findByQuery($query);
     }
@@ -196,7 +187,6 @@ class TAdmin extends ModelHandler
                 ["email" => $account],
                 ["user_id" => $account]
             ],
-            'status' => USER_STATUS_VALID,
         );
         return parent::findByQuery($query);
     }
@@ -214,7 +204,7 @@ class TAdmin extends ModelHandler
         ];
         $set = [
             '$set' => [
-                'status' => USER_STATUS_DELETED,
+                'status' => 0,
             ]
         ];
 
@@ -232,9 +222,6 @@ class TAdmin extends ModelHandler
     {
         $query = array(
             "mobile" => $mobile,
-            'status' => [
-                '$ne' => USER_STATUS_DELETED
-            ],
         );
         return parent::findByQuery($query);
     }

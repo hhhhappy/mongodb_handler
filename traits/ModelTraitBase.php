@@ -9,7 +9,7 @@
  *
  */
 
-namespace WisewinVending\Models\Traits;
+namespace Application\Models\Traits;
 
 use MongoDB\BSON\ObjectID;
 

@@ -6,7 +6,7 @@
  * Time: 10:13
  */
 
-namespace WisewinVending\Models\Base;
+namespace Application\Models\Base;
 
 use Phalcon\Di;
 
